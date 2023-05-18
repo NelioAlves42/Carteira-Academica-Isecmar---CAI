@@ -1,0 +1,87 @@
+.App {
+  text-align: center;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+  background-image: linear-gradient(79deg, #7439db, #001eff 48%, #008cff);
+}
+
+.auth-form-container, .login-form, .register-form, .box-allh {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 600px) {
+  .auth-form-container {
+    padding: 5rem;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 0.5rem;
+    background-color: rgb(71, 222, 222);
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .box-allh {
+    padding: 5rem;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 0.5rem;
+    background-color: rgb(71, 222, 222);
+  }
+}
+
+select {
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #f7f7f7;
+  font-size: 1em;
+  color: #333;
+  appearance: none;
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #00bfff;
+}
+
+option {
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+  font-weight: bolder;
+  width: 200px;
+}
+
+input {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+}
+
+button {
+  border: none;
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 1rem 0;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: medium;
+  color: #2b3c2b;
+}
+
+.link-btn {
+  background: none;
+  color: rgb(17, 3, 96);
+  text-decoration: underline;
+}
+

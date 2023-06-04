@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./App.css";
-import { courses } from './courses';
 import { auth, db } from './firebase';
-import { ref,onValue,  set, get, update, remove, child } from 'firebase/database';
+import { ref,onValue,  set } from 'firebase/database';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 

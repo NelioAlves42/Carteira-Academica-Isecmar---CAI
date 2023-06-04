@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./avaliacoes.css";
 import { db, auth} from "./firebase";
-import { ref, push, onValue, set, remove, update } from "firebase/database";
+import { ref, push, onValue, set, remove } from "firebase/database";
 
 
 export const Avaliacoes = () => {

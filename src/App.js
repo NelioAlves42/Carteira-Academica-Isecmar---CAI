@@ -26,22 +26,18 @@ function App() {
 
   const handleAvaliacoesClick = () => {
     if (!user) {
-      const confirm = window.confirm("Nenhum usuário está conectado no momento. Deseja fazer login?");
-      if (confirm) {
-        return <Redirect to="/login" />;
-      }
+      window.alert("Nenhum usuário está conectado no momento. Clique em OK para fazer login.");
+      return <Redirect to="/login" />;
     }
   };
-
+  
   const handlePerfilClick = () => {
     if (!user) {
-      const confirm = window.confirm("Nenhum usuário está conectado no momento. Deseja fazer login?");
-      if (confirm) {
-        return <Redirect to="/login" />;
-      }
+      window.alert("Nenhum usuário está conectado no momento. Clique em OK para fazer login.");
+      return <Redirect to="/login" />;
     }
   };
-
+  
   return (
     <Router>
       <div>

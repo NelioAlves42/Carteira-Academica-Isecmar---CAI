@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-import { auth } from "./firebase";
+import { useHistory } from 'react-router-dom';
+import { auth, db } from "./firebase";
 import { signOut } from "firebase/auth";
 import 'firebase/auth';
+import { ref, onValue } from 'firebase/database';
 
 export const Home = () => {
-  const [uid, setUid] = useState(null);
+  const [name, setName] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
-        setUid(user.uid);
+        const userRef = ref(db, `alunos/${user.uid}/name`);
+        onValue(userRef, (snapshot) => {
+          const userName = snapshot.val();
+          setName(userName);
+        });
       } else {
-        setUid(null);
+        setName(null);
       }
     });
     return unsubscribe;
@@ -38,21 +44,31 @@ export const Home = () => {
       console.error('Erro ao sair:', error);
     }
   };
-  
-  
+
+  const handlePerfilClick = () => {
+    if (auth.currentUser) {
+      history.push('/perfil');
+    } else {
+      alert('Faça login para acessar o perfil');
+    }
+  };
+
+  const handleAvaliacoesClick = () => {
+    if (auth.currentUser) {
+      history.push('/avaliacoes');
+    } else {
+      alert('Faça login para acessar as avaliações');
+    }
+  };
 
   return (
     <div className="App">
       <div className="box-allh"> 
         <h1>CAI - Carteira Academica Isemcar</h1>
         <div>
-          <p>Logado como: {uid}</p>
-          <Link to="/perfil">
-            <button>Perfil</button>
-          </Link>
-          <Link to="/avaliacoes">
-            <button>Avaliações</button>
-          </Link>
+          {name && <p>Logado como: {name}</p>}
+          <button onClick={handlePerfilClick}>Perfil</button>
+          <button onClick={handleAvaliacoesClick}>Avaliações</button>
           <button onClick={handleLogout}>Logout</button>
         </div>
       </div>

@@ -109,10 +109,6 @@ export const Perfil = () => {
               <div className="form-value">{userData.currentYear}</div>
             )}
           </div>
-          <div className="form-field">
-            <label>UID:</label>
-            <div className="form-value">{userData.uid}</div>
-          </div>
           {editMode ? (
             <button onClick={handleUpdate}>Atualizar</button>
           ) : (

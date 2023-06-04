@@ -30,7 +30,7 @@ export const Perfil = () => {
       const yearDiff = currentYearDate - userData.entryYear;
       const options = [];
       for (let i = 1; i <= Math.min(yearDiff, 3) + 1; i++) {
-        options.push(i.toString() + (i === 1 ? 'st' : i === 2 ? 'nd' : i === 3 ? 'rd' : 'th') + ' year');
+        options.push(i.toString() + (i === 1 ? 'st' : i === 2 ? 'nd' : i === 3 ? 'rd' : 'th') + 'Year');
       }
       setYearOptions(options);
     }
@@ -52,15 +52,15 @@ export const Perfil = () => {
           currentYear: updatedCurrentYear
         })
           .then(() => {
-            console.log('Data updated successfully');
+            console.log('Dados atualizados com sucesso');
             setEditMode(false);
           })
           .catch((error) => {
-            alert('Error updating data');
-            console.error('Error updating data:', error);
+            alert('Erro ao atualizar dados');
+            console.error('Erro ao atualizar dados:', error);
           });
       } else {
-        alert('Invalid year input: Must be equal or above, the original study year when registering');
+        alert('Ano de estudo inválido: Deve ser igual ou superior ao ano de estudo original ao se registrar');
         console.error('Invalid current year');
         console.error(currentYear);
       }
@@ -77,19 +77,19 @@ export const Perfil = () => {
             <div className="form-value">{userData.email}</div>
           </div>
           <div className="form-field">
-            <label>Name:</label>
+            <label>Nome:</label>
             <div className="form-value">{userData.name}</div>
           </div>
           <div className="form-field">
-            <label>Course:</label>
-            <div className="form-value">{userData.course}</div>
+            <label>Curso:</label>
+            <div className="form-value">{userData.userCourse}</div>
           </div>
           <div className="form-field">
-            <label>Entry Year:</label>
+            <label>Ano de Entrada:</label>
             <div className="form-value">{userData.entryYear}</div>
           </div>
           <div className="form-field">
-            <label>Current Year:</label>
+            <label>Ano Atual de estudo:</label>
             {editMode ? (
               <select
                 id="current-year"
@@ -98,7 +98,7 @@ export const Perfil = () => {
                 onChange={(e) => setUpdatedCurrentYear(e.target.value)}
                 required
               >
-                <option value="">Select current year of study</option>
+                <option value="">Selecione o ano atual de estudo</option>
                 {yearOptions.map((option) => (
                   <option key={option} value={option}>
                     {option}
@@ -114,9 +114,9 @@ export const Perfil = () => {
             <div className="form-value">{userData.uid}</div>
           </div>
           {editMode ? (
-            <button onClick={handleUpdate}>Update</button>
+            <button onClick={handleUpdate}>Atualizar</button>
           ) : (
-            <button onClick={handleEdit}>Edit</button>
+            <button onClick={handleEdit}>Editar</button>
           )}
         </div>
       )}

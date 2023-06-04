@@ -57,7 +57,7 @@ export const Login = (props) => {
         <button type="submit">Login</button>
 
         <div>
-          Don't have an account?{" "}
+          Não tem uma conta?{" "}
           <Link to="/" className="link-btn">
             Register here
           </Link>

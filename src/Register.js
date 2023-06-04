@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import "./App.css";
 import { courses } from './courses';
 import { auth, db } from './firebase';
-import { ref, set, get, update, remove, child } from 'firebase/database';
+import { ref,onValue,  set, get, update, remove, child } from 'firebase/database';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 
@@ -12,6 +12,7 @@ export const Register = (props) => {
   const [pass, setPass] = useState('');
   const [name, setName] = useState('');
   const [course, setCourse] = useState('');
+  const [courses, setCourses] = useState([]);
   const [entryYear, setEntryYear] = useState('');
   const [currentYear, setCurrentYear] = useState('');
   const [yearOptions, setYearOptions] = useState([]);
@@ -31,7 +32,7 @@ export const Register = (props) => {
         const userData = {
           email: email,
           name: name,
-          course: course,
+          userCourse: course,
           entryYear: entryYear,
           originalYear: currentYear,
           currentYear: currentYear,
@@ -61,51 +62,63 @@ export const Register = (props) => {
       const yearDiff = currentYearDate - entryYear;
       const options = [];
       for (let i = 1; i <= Math.min(yearDiff, 3) + 1; i++) {
-        options.push(i.toString() + (i === 1 ? 'st' : i === 2 ? 'nd' : i === 3 ? 'rd' : 'th') + ' year');
+        options.push(i.toString() + (i === 1 ? 'st' : i === 2 ? 'nd' : i === 3 ? 'rd' : 'th') + 'Year');
       }
       setYearOptions(options);
     }
-  }, [entryYear]);
+  }, [entryYear, currentYearDate]);
+
+  // useEffect to get courses
+  useEffect(() => {
+    const coursesRef = ref(db, 'courses');
+    onValue(coursesRef, (snapshot) => {
+      const data = snapshot.val();
+      const courseList = Object.keys(data).map((key) => data[key]);
+      setCourses(courseList);
+    });
+  }, []);
+  
 
   return (
     <div className="App">
       <form className="auth-form-container register-form" onSubmit={handleRegister}>
-        <h1>Register</h1>
-        <label htmlFor="name">Name</label>
-        <input type="text" id="name" value={name} placeholder="Enter your first and last name" onChange={(e) => setName(e.target.value)} required />
+        <h1>Registrar</h1>
+        <label htmlFor="name">Nome</label>
+        <input type="text" id="name" value={name} placeholder="Digite seu nome e sobrenome" onChange={(e) => setName(e.target.value)} required />
 
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" value={email} placeholder="Enter your UTA domain Email" onChange={(e) => setEmail(e.target.value)} required pattern=".+@uta\.cv" />
+        <input type="email" id="email" value={email} placeholder="Digite seu e-mail de domínio UTA" onChange={(e) => setEmail(e.target.value)} required pattern=".+@uta\.cv" />
 
         <label htmlFor="pass">Password</label>
-        <input type="password" id="pass" value={pass} placeholder="Enter your password, min 8" onChange={(e) => setPass(e.target.value)} minLength="8" required />
+        <input type="password" id="pass" value={pass} placeholder="Digite sua senha, minimo 8" onChange={(e) => setPass(e.target.value)} minLength="8" required />
 
-        <label htmlFor="course">Course</label>
+        <label htmlFor="course">Cursos</label>
         <select id="course" name="course" value={course} onChange={(e) => setCourse(e.target.value)} required>
-          <option value="">Choose a course</option>
+          <option value="">Escolhe um curso</option>
           {courses.map((course) => (
             <option key={course} value={course}>{course}</option>
           ))}
         </select>
 
-        <label htmlFor="entryYear">Entry Year</label>
-        <input type="number" id="entryYear" value={entryYear} placeholder="Enter the year you joined UTA" 
+
+        <label htmlFor="entryYear">Ano de Entrada</label>
+        <input type="number" id="entryYear" value={entryYear} placeholder="Digite o ano em que ingressou na UTA" 
           onChange={(e) => setEntryYear(e.target.value)} maxLength="4" required 
           onInput={(e) => {
             e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 4)
           }} 
         />
 
-        <label htmlFor="current-year">Current Year of Study</label>
+        <label htmlFor="current-year">Ano Atual de estudo</label>
         <select id="current-year" name="current-year" value={currentYear} onChange={(e) => setCurrentYear(e.target.value)} required >
-          <option value="">Select current year of study</option>
+          <option value="">Selecione o ano atual de estudo</option>
           {yearOptions.map((option) => (
             <option key={option} value={option}>{option}</option>
             ))}
         </select>
 
-        <button type="submit">Register</button>
-        <p>Already have an account? <Link to="/login" className="link-btn">Login</Link></p>
+        <button type="submit">Registrar</button>
+        <p>Já tem uma conta?<Link to="/login" className="link-btn">Faz Login</Link></p>
       </form>
     </div>
   );

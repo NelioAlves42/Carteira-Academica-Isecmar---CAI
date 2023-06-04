@@ -21,21 +21,21 @@ export const Home = () => {
   const handleLogout = async () => {
     try {
       if (auth.currentUser) {
-        console.log(`User ${auth.currentUser.uid} logged out successfully`);
+        console.log(`O usuário ${auth.currentUser.uid} foi desconectado com sucesso`);
 
         await signOut(auth);
 
         setTimeout(() => {
-          window.location.href = '/register';
+          window.location.href = '/';
         }, 3000);
         
       } else {
-        alert('No user is currently signed in');
-        console.log('No user is currently signed in');
+        alert('Nenhum usuário está conectado no momento');
+        console.log('Nenhum usuário está conectado no momento');
       }
     } catch (error) {
-      alert('Error logging out');
-      console.error('Error logging out:', error);
+      alert('Erro ao sair');
+      console.error('Erro ao sair:', error);
     }
   };
   
@@ -46,7 +46,7 @@ export const Home = () => {
       <div className="box-allh"> 
         <h1>CAI - Carteira Academica Isemcar</h1>
         <div>
-          <p>Logged in as: {uid}</p>
+          <p>Logado como: {uid}</p>
           <Link to="/perfil">
             <button>Perfil</button>
           </Link>

@@ -54,8 +54,15 @@ export const Avaliacoes = () => {
       setAvaliacoes(userAvaliacoes);
     });
     }, []);
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    
+    // Check if any required fields are empty
+    if (!disciplina || !tipoAvaliacao || !dataAvaliacao || !nota) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
   
     // Check if nota is within the valid range
     if (nota < 0 || nota > 20) {
@@ -113,6 +120,13 @@ export const Avaliacoes = () => {
   };
   
   const handleUpdateAvaliacao = () => {
+
+    // Check if any required fields are empty
+    if (!disciplina || !tipoAvaliacao || !dataAvaliacao || !nota) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+          return;
+    }
+
     // Check if nota is within the valid range
     if (nota < 0 || nota > 20) {
       alert('Nota deve estar entre 0 e 20');
@@ -184,6 +198,7 @@ export const Avaliacoes = () => {
                   value={disciplina}
                   onChange={(event) => setDisciplina(event.target.value)}
                   disabled={selectedAvaliacao !== null} // Disable the select if an evaluation is being edited
+                  required
                 >
                   <option value="">Selecione</option>
                   {/* Options will be populated here */}
@@ -196,7 +211,7 @@ export const Avaliacoes = () => {
               </label>
               <label>
                 Tipo de Avaliação:
-                <select value={tipoAvaliacao} onChange={(event) => setTipoAvaliacao(event.target.value)}>
+                <select value={tipoAvaliacao} onChange={(event) => setTipoAvaliacao(event.target.value)} required>
                   <option value="">Selecione</option>
                   <option value="Continua">Continua</option>
                   <option value="Exame">Exame</option>
@@ -205,7 +220,7 @@ export const Avaliacoes = () => {
               {tipoAvaliacao === 'Continua' && (
                 <label>
                   Subtipo de Avaliação:
-                  <select value={subtipoAvaliacao} onChange={(event) => setSubtipoAvaliacao(event.target.value)}>
+                  <select value={subtipoAvaliacao} onChange={(event) => setSubtipoAvaliacao(event.target.value)} required>
                     <option value="">Selecione</option>
                     <option value="Teste">Teste</option>
                     <option value="Pratica">Pratica</option>
@@ -215,7 +230,7 @@ export const Avaliacoes = () => {
               {tipoAvaliacao === 'Exame' && (
                 <label>
                   Subtipo de Avaliação:
-                  <select value={subtipoAvaliacao} onChange={(event) => setSubtipoAvaliacao(event.target.value)}>
+                  <select value={subtipoAvaliacao} onChange={(event) => setSubtipoAvaliacao(event.target.value)} required>
                     <option value="">Selecione</option>
                     <option value="1ª Chamada">1ª Chamada</option>
                     <option value="2ª Chamada">2ª Chamada</option>
@@ -226,7 +241,7 @@ export const Avaliacoes = () => {
               )}
               <label>
                 Data da Avaliação:
-                <input type="date" value={dataAvaliacao} onChange={(event) => setDataAvaliacao(event.target.value)} />
+                <input type="date" value={dataAvaliacao} onChange={(event) => setDataAvaliacao(event.target.value)} required/>
               </label>
               <label>
                 Nota:

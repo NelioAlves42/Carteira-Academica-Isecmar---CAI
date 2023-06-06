@@ -185,6 +185,7 @@ export const Avaliacoes = () => {
                   onChange={(event) => setDisciplina(event.target.value)}
                   disabled={selectedAvaliacao !== null} // Disable the select if an evaluation is being edited
                 >
+                  <option value="">Selecione</option>
                   {/* Options will be populated here */}
                   {options.map((option) => (
                     <option key={option.id} value={option.name}>

@@ -69,13 +69,13 @@ function App() {
         </nav>
 
         <Switch>
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/" component={Register} />
+          <Route path="/home" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/" component={Register} />
           {user ? (
             <>
-              <Route exact path="/perfil" component={Perfil} />
-              <Route exact path="/avaliacoes" component={Avaliacoes} />
+              <Route path="/perfil" component={Perfil} />
+              <Route path="/avaliacoes" component={Avaliacoes} />
             </>
           ) : (
             <Redirect to="/login" />

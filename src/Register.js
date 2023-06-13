@@ -40,7 +40,7 @@ export const Register = (props) => {
         set(userRef, userData);
   
         setTimeout(() => {
-          history.push("/login");
+          history.push("/home");
         }, 3000);
       })
       .catch((error) => {

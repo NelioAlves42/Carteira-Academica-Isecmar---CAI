@@ -74,8 +74,8 @@ function App() {
           <Route path="/" component={Register} />
           {user ? (
             <>
-              <Route path="/perfil" component={Perfil} />
-              <Route path="/avaliacoes" component={Avaliacoes} />
+              <Route exact path="/perfil" component={Perfil} />
+              <Route exact path="/avaliacoes" component={Avaliacoes} />
             </>
           ) : (
             <Redirect to="/login" />

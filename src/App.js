@@ -69,9 +69,9 @@ function App() {
         </nav>
 
         <Switch>
-          <Route path="/home" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/" component={Register} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={Register} />
           {user ? (
             <>
               <Route exact path="/perfil" component={Perfil} />
